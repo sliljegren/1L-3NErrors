@@ -51,8 +51,8 @@ The validity of such calculations has not been tested by the authors, and we can
 
 The output will have a similar syntax to the input file, with a few added output columns:
 
-	# index,	teff/K,	lg(g/cms^-2),	A(Fe),	vmic/kms^-1,	Elo/eV,	Eup,		lggf,	Species,	aberr,	extrapolate,	in_grid
-	0,			5051.0,	4.0,			4.5,	0.0,			3.0,	5.586893,	-2.563,	Fe1,		-0.136,	False,			True
+	# index, teff/K, lg(g/cms^-2), A(Fe), vmic/kms^-1, Elo/eV, Eup,       lggf,   Species, aberr,  extrapolate, in_grid
+	0,       5051.0, 4.0,          4.5,	  0.0,         3.0,    5.586893,  -2.563, Fe1,     -0.136, False,       True
 	...
 
 - The first column is an index column - `int`
