@@ -42,18 +42,24 @@ The default setting of the code is to not allow extrapolation, i.e. if the given
 
     python3 main_aberr.py input_file.csv ouput_file.csv True
 
-The validity of such calculations has not been tested by the authors, and we cannot supply errors as such. **Using extrapolation is therefore at the discretion of the user, and the authors cannot guarantee that the results are reasonable.**
+The validity of such calculations has not been tested by the authors, and we cannot supply errors as such. 
+
+**Using extrapolation is therefore at the discretion of the user, and the authors cannot guarantee that the results are reasonable.**
 
 
 ### 1.4 The output
 
-The output will have a similar syntax to the input file, with added columns:
+The output will have a similar syntax to the input file, with a few added output columns:
 
-- The first column is an index column - `int value`
-- The aberr column contains the calculated NLTE corrections - `float value`
+	# index,	teff/K,	lg(g/cms^-2),	A(Fe),	vmic/kms^-1,	Elo/eV,	Eup,		lggf,	Species,	aberr,	extrapolate,	in_grid
+	0,			5051.0,	4.0,			4.5,	0.0,			3.0,	5.586893,	-2.563,	Fe1,		-0.136,	False,			True
+	...
+
+- The first column is an index column - `int`
+- The aberr column contains the calculated NLTE corrections - `float`
 	- If the input values are outside the stellar parameter grid, of the species is wrong, this value is a default -999 value
-- The extrapolation column states if extrapolation is allowed - `True/False`
-- The in_grid column states if the stellar parameters of the line are within the model grid values - `True/False`
+- The extrapolation column states if extrapolation is allowed - `bolean`
+- The in_grid column states if the stellar parameters of the line are within the model grid values - `bolean`
 
 ## 2. Dependencies
 
