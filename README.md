@@ -1,11 +1,14 @@
 # NLTE_corrections
-Using machine learning neural network trained on Fe data, calculate Fe1 and Fe2 NLTE corrections
+
+Using machine learning neural network trained on Fe data, calculate Fe1 and Fe2 NLTE corrections - for more information see Amarsi+2022. 
+
+**This is based on unpublished work, please contact me if you want to use these scripts before publication.**
 
  ---
 
 1. Running the script
 2. Dependencies
-3. Using only ´function_aberr.py´
+3. Using only `function_aberr.py`
 
  ---
 
@@ -13,27 +16,84 @@ Using machine learning neural network trained on Fe data, calculate Fe1 and Fe2 
 
 ### 1.1 Prepare the input file
 
-The input file contains information about the lines for which the NLTE corrections ´aberr´ is calculated and has the following syntax
+The input file contains information about the lines for which the NLTE corrections `aberr` is calculated and has the following syntax
 
 
     # teff/K, lg(g/cms^-2), [M/H], vmic/kms^-1,   Elo/eV,        Eup, l.   ggf, Species
     5051.0,           4.0,   4.5,          0.0,  2.998045,  5.586893, -2.56300,     Fe1
+	...
 
-For an example input file, ´see test_data.csv´. 
+Each row in the input file is the stellar parameter and then the line parameters for a specific spectral line.
+
+It is possible to provide both Fe1, Fe2, and other lines in the same file if the species are correctly defined. The output species other than Fe1 or Fe2 will be -999. 
+
+For an example input file, see `test_data.csv`. 
 
 ### 1.2 Running the script
 
-This is a ´python3´ script, that takes (obligatorily) 2 input, the ´input_file.csv´ filename, and ´output_file.csv´ filename as
+This is a `python3` script, that takes (obligatorily) 2 inputs, the `input_file.csv` input filename, and `output_file.csv` output filename as
 
     python3 main_aberr.py input_file.csv ouput_file.csv
 
 
-### 1.3 Running the script
+### 1.3 Extrapolation
 
-The output will have the similar syntax to the input file, with added columns:
+The default setting of the code is to not allow extrapolation, i.e. if the given stellar parameters are outside the calculated model grid, the code will not calculate a aberr value for that input. It is possible to turn it on by adding a third input as 
 
-- The first column is an index column - int value
-- The aberr column contains the calculated NLTE corrections - float value
-	- If the input values are outside the stellar parameter grid, of the species is wrong, this value is a defalt -999 value
-- The extrapolation column states if extrapolation is allowed - True/False
-- The in_grid column states if the stellar parameter is within the model grid values - True/False
+    python3 main_aberr.py input_file.csv ouput_file.csv True
+
+The validity of such calculations has not been tested by the authors, and we cannot supply errors as such. **Using extrapolation is therefore at the discretion of the user, and the authors cannot guarantee that the results are reasonable.**
+
+
+### 1.4 The output
+
+The output will have a similar syntax to the input file, with added columns:
+
+- The first column is an index column - `int value`
+- The aberr column contains the calculated NLTE corrections - `float value`
+	- If the input values are outside the stellar parameter grid, of the species is wrong, this value is a default -999 value
+- The extrapolation column states if extrapolation is allowed - `True/False`
+- The in_grid column states if the stellar parameters of the line are within the model grid values - `True/False`
+
+## 2. Dependencies
+
+This script uses the following dependencies:
+
+    pandas
+	numpy
+	sklearn
+
+Before using these need to be installed. 
+
+## 3. Using only `function_aberr.py`
+
+It is possible to use the functions provided in `function_aberr.py` directly in a python code as well by adding 
+
+    from function_aberr import *
+
+to the top of your python script.
+
+`function_aberr.py` contains 3 different functions that calculate the aberr:
+
+    aberr = function_fe1_lt02(input_parameters) #-> calculates aberr for Fe1 with elo < 0.2
+	
+	aberr = function_fe1_gt02(input_parameters) #-> calculates aberr for Fe1 with elo > 0.2
+	
+	aberr = function_fe2(input_parameters) 		#-> calculates aberr for Fe2
+
+
+The input is pandas df with the following columns
+
+	    teff/K  lg(g/cms^-2)  A(Fe)  vmic/kms^-1    Elo/eV       Eup     lggf
+	0   5051.0           4.0    4.5          0.0  3.236720  5.825065 -1.76299
+	1   5051.0           4.0    4.5          0.0  3.641640  6.222374 -1.51400
+	...
+
+Notice that the functions can also take numpy arrays, as
+
+	array([[5051.0, 4.0, 4.5, 0.0, 3.23672, 5.825065, -1.76299],
+	       [5051.0, 4.0, 4.5, 0.0, 3.64164, 6.222373999999999, -1.514],
+		   ...])
+    
+
+which will yield the same aberr output as the dataframe, however, with a warning.
