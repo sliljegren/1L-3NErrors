@@ -129,7 +129,7 @@ if any(input_parameters['Species'] == 'Fe2'):
 
 # output df written to defined output file name and which contains: 
 # index, teff/K,lg(g/cms^-2), A(Fe), vmic/kms^-1, Elo/eV, Eup, lggf, Species, aberr, extrapolate, in_grid
-outp.to_csv(output_fname, index_label = '# index')
+outp.to_csv(output_fname, index_label = '# index', float_format='%16.8f')
 
 print('---')
 print('aberr has been saved to %s'%(output_fname))
