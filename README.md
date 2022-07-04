@@ -100,9 +100,9 @@ to the top of your python script.
 
 `function_aberr.py` contains 3 different functions that calculate the aberr:
 
-    aberr = function_fe1_lt02(input_parameters) #-> calculates aberr for Fe1 with elo < 0.2
+    aberr = function_fe1_lt02(input_parameters) #-> calculates aberr for Fe1 with elo < 2eV
 	
-	aberr = function_fe1_gt02(input_parameters) #-> calculates aberr for Fe1 with elo > 0.2
+	aberr = function_fe1_gt02(input_parameters) #-> calculates aberr for Fe1 with elo > 2eV
 	
 	aberr = function_fe2(input_parameters) 		#-> calculates aberr for Fe2
 
@@ -110,7 +110,7 @@ The output is an numpy array with the aberr results.
 
 Two caveats
 - User has to make sure to use the correct function for Fe1 and Fe2 lines. 
-- User has to make sure to use the correct function for Fe1 less than 0.2 Elo/eV or Fe1 greater than 0.2 Elo/eV. 
+- User has to make sure to use the correct function for Fe1 less than 2 Elo/eV or Fe1 greater than 2 Elo/eV. 
 
 The input is pandas df with the following columns
 
@@ -126,5 +126,5 @@ Notice that the functions can also take numpy arrays, as
 		   ...])
     
 
-which will yield the same aberr output as the dataframe, however, with a
+which will yield the same aberr output as the data frame, however, with a
 warning.

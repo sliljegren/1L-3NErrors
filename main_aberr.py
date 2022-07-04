@@ -73,10 +73,10 @@ input_parameters = pd.read_csv(input_fname, names = header2, comment = '#')
 # remove extra spaces in the species input
 input_parameters['Species'] = input_parameters['Species'].str.strip()
 
-# define an output dataframe
+# define an output data frame
 outp = input_parameters.copy()
 
-# add default aberr to the data frame if its not calclated by the script
+# add default aberr to the data frame if its not calculated by the script
 outp['aberr'] = np.ones(len(input_parameters.index)) * -999
 
 # add extrapolation and in_grid column to output df
@@ -84,7 +84,7 @@ outp['extrapolate'] = [extrapolate for i in range(len(input_parameters.index))]
 outp['in_grid'] = [False for i in range(len(input_parameters.index))]
 
 
-# checks if the values in the input are within the boundaries of the orginal model grid
+# checks if the values in the input are within the boundaries of the original model grid
 in_tgrid = (outp['teff/K'] >= 5000) & (outp['teff/K'] <= 6500)
 in_lgggrid = (outp['lg(g/cms^-2)'] >= 4) & (outp['lg(g/cms^-2)'] <= 4.5)
 in_vmicgrid = (outp['vmic/kms^-1'] >= 0) & (outp['vmic/kms^-1'] <= 3)
@@ -99,7 +99,7 @@ outp.loc[indi_e, 'in_grid'] = True
 if extrapolate:
     indi_e = outp['extrapolate']
 
-# checks for Fe1 and elo < 0.2
+# checks for Fe1 and elo < 2eV
 if any(input_parameters['Species'] == 'Fe1') and any(input_parameters['Elo/eV'] < 2.0):
     # index for these parameters
     indi11 = (input_parameters['Species']  == 'Fe1') & (input_parameters['Elo/eV'] < 2.0) & indi_e
@@ -108,7 +108,7 @@ if any(input_parameters['Species'] == 'Fe1') and any(input_parameters['Elo/eV'] 
     # added to the output df
     outp.loc[indi11,'aberr'] = aberr11
 
-# checks for Fe1 and elo < 0.2
+# checks for Fe1 and elo > 2eV
 if any(input_parameters['Species'] == 'Fe1') and any(input_parameters['Elo/eV'] > 2.0):
     # index for these parameters
     indi12 = (input_parameters['Species']  == 'Fe1') & (input_parameters['Elo/eV'] > 2.0)  & indi_e
