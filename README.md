@@ -8,15 +8,27 @@ scripts before publication.**
 
  ---
 
-1. Running the script
-2. Dependencies
+1. Dependencies
+2. Running the script
 3. Using only `function_aberr.py`
 
  ---
 
-## 1. Running the script
+## 1. Dependencies
 
-### 1.1 Prepare the input file
+To run the script we suggest setting up a virtual environment with python and install the version of packages used to develop the machine learning models. For more information about virtual environments see [the documentation](https://docs.python.org/3/tutorial/venv.html). 
+
+This script uses the following dependencies:
+
+    pandas==1.1.3
+    numpy==1.19.3
+    scikit-learn==1.0.2
+
+Before using these need to be installed. 
+
+## 2. Running the script
+
+### 2.1 Prepare the input file
 
 The input file contains information about the lines for which the 1D LTE - 3D
 non-LTE abundance errors `aberr` are calculated and has the following syntax
@@ -38,7 +50,7 @@ species are correctly defined. The output species other than Fe1 or Fe2 will be
 
 For an example input file, see `test_data.csv`. 
 
-### 1.2 Running the script
+### 2.2 Running the script
 
 This is a `python3` script, that takes (obligatorily) 2 inputs, the
 `input_file.csv` input filename, and `output_file.csv` output filename as
@@ -46,7 +58,7 @@ This is a `python3` script, that takes (obligatorily) 2 inputs, the
     python3 main_aberr.py input_file.csv ouput_file.csv
 
 
-### 1.3 Extrapolation
+### 2.3 Extrapolation
 
 The default setting of the code is to not allow extrapolation, i.e. if the given
 stellar parameters are outside the calculated model grid, the code will not
@@ -62,7 +74,7 @@ cannot supply errors as such.
 authors cannot guarantee that the results are reasonable.**
 
 
-### 1.4 The output
+### 2.4 The output
 
 The output will have a similar syntax to the input file, with a few added output
 columns:
@@ -79,15 +91,6 @@ columns:
 - The in_grid column states if the stellar parameters of the line are within the
   model grid values - `bolean`
 
-## 2. Dependencies
-
-This script uses the following dependencies:
-
-    pandas
-	numpy
-	sklearn
-
-Before using these need to be installed. 
 
 ## 3. Using only `function_aberr.py`
 
