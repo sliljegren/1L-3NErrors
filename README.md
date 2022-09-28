@@ -1,10 +1,8 @@
 # 1L-3NErrors
 
 Using machine learning neural network trained on Fe data, calculate Fe1 and Fe2
-1D LTE - 3D non-LTE abundance errors - for more information see Amarsi+2022. 
+1D LTE - 3D non-LTE abundance errors - for more information see [Amarsi+2022](https://arxiv.org/abs/2209.13449).
 
-**This is based on unpublished work, please contact me if you want to use these
-scripts before publication.**
 
  ---
 
